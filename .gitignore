@@ -12,3 +12,8 @@ wheels/
 
 # env
 .env
+
+
+# homework artifacts
+семинар_2/homework/generation.log
+семинар_2/homework/applications.json
