@@ -1,0 +1,50 @@
+[
+  {
+    "id": "Q1_usd_growth",
+    "query": "Во сколько раз USD подорожал с 1 января 2022 по сегодня?",
+    "n": 1,
+    "sequential": [
+      {
+        "elapsed_sec": 75.643,
+        "ok": false,
+        "answer_preview": "не удалось получить вердикт 'accept' за 3 итераций",
+        "iterations": 3
+      }
+    ],
+    "parallel": [
+      {
+        "elapsed_sec": 101.346,
+        "ok": false,
+        "answer_preview": "не удалось получить вердикт 'accept' за 3 итераций",
+        "iterations": 3
+      }
+    ],
+    "sequential_avg_sec": 75.643,
+    "parallel_avg_sec": 101.346,
+    "speedup": 0.75
+  },
+  {
+    "id": "bonus_3_currencies",
+    "query": "Сравни курсы USD, EUR и CNY на 1 января 2022 и сегодня: для каждой валюты скажи, во сколько раз изменился курс.",
+    "n": 1,
+    "sequential": [
+      {
+        "elapsed_sec": 241.855,
+        "ok": false,
+        "answer_preview": "не удалось получить вердикт 'accept' за 3 итераций",
+        "iterations": 3
+      }
+    ],
+    "parallel": [
+      {
+        "elapsed_sec": 47.325,
+        "ok": true,
+        "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Текущий курс USD к рублю составляет 73,439 рубля за доллар. · Курс USD к рублю с 1 января 2022 года по сегодняшний день изменился в 0.9885 раз (данные из ло",
+        "iterations": 2
+      }
+    ],
+    "sequential_avg_sec": 241.855,
+    "parallel_avg_sec": 47.325,
+    "speedup": 5.11
+  }
+]

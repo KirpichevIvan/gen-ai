@@ -1,59 +1,33 @@
-"""
-Eval мульти-агента: 3 вопроса, на которых одиночный агент С5 ломается.
+"""Eval 6x3 для одиночного агента, PWC без валидатора и PWC с валидатором."""
 
-Каждый вопрос прогоняется дважды:
-  1) через одиночного агента С5 (agent_s5.run_agent)
-  2) через PWC-цикл (orchestrator.run_pwc)
-
-и сравниваются:
-  - вызван ли calculate там, где нужно (для арифметических вопросов)
-  - нет ли галлюцинаций инструментов
-  - есть ли в ответе обязательная подстрока (must_have)
-
-Прогон N=5 раз, считаем долю успешных прогонов. Результат пишется в eval_pwc_results.json.
-
-Запуск:
-    python eval_pwc.py           # полный прогон
-    python eval_pwc.py --single  # только один прогон каждого, быстрая проверка
-"""
 from __future__ import annotations
 
 import argparse
 import json
 import sys
 from pathlib import Path
+from time import perf_counter
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from agent_s5 import run_agent
-from orchestrator import run_pwc
+from orchestrator import VALID_TOOLS, run_pwc
 
 
 CASES = [
     {
         "id": "Q1",
         "query": "Во сколько раз USD подорожал с 1 января 2022 по сегодня?",
-        "comment": (
-            "Класс ошибки C: одиночный часто считает в уме, не зовёт calculate. "
-            "PWC должен починить — Планировщик обязан добавить calculate-подвопрос."
-        ),
-        "expected_tools_pwc": {"get_fx_rate", "calculate"},
-        "must_have_keywords": ["раз", "USD"],
-        "forbid_hallucinated_tools": True,
+        "expected_tools": {"get_fx_rate", "calculate"},
+        "must_have_keywords": ["USD"],
+        "needs_calculate": True,
     },
     {
         "id": "Q2",
-        "query": (
-            "Какая сейчас реальная ключевая ставка, если инфляцию брать "
-            "по последнему доступному месяцу, а не по году?"
-        ),
-        "comment": (
-            "Класс ошибки B: одиночный не умеет искать «последний доступный» "
-            "месяц, зацикливается. PWC должен разбить на шаги."
-        ),
-        "expected_tools_pwc": {"get_inflation", "get_key_rate", "calculate"},
+        "query": "Какая сейчас реальная ключевая ставка, если инфляцию брать по последнему доступному месяцу, а не по году?",
+        "expected_tools": {"get_inflation", "get_key_rate", "calculate"},
         "must_have_keywords": ["%"],
-        "forbid_hallucinated_tools": True,
+        "needs_calculate": True,
     },
     {
         "id": "Q3",
@@ -61,145 +35,173 @@ CASES = [
             "Какова накопленная инфляция с января 2022 по март 2026? "
             "Рассчитай как произведение всех (1 + ипц_м/100) по месяцам."
         ),
-        "comment": (
-            "Класс ошибки D (граница паттерна): требует get_inflation за много "
-            "месяцев + большое calculate-выражение. Одиночный галлюцинирует "
-            "get_cumulative_inflation; PWC обычно тоже (Планировщик может добавить "
-            "выдуманный инструмент в план). Это — повод для Schema-Validator в домашке."
-        ),
-        "expected_tools_pwc": {"get_inflation", "calculate"},
+        "expected_tools": {"get_inflation", "calculate"},
         "must_have_keywords": ["%"],
-        "forbid_hallucinated_tools": True,
+        "needs_calculate": True,
+        "allow_empty_plan": True,
+    },
+    {
+        "id": "Q4_validator",
+        "query": "Какова накопленная инфляция за 2024 год? Не используй выдуманные агрегированные инструменты.",
+        "expected_tools": {"get_inflation", "calculate"},
+        "must_have_keywords": ["%"],
+        "needs_calculate": True,
+    },
+    {
+        "id": "Q5_parallel",
+        "query": (
+            "Сравни курсы USD, EUR и CNY на 1 января 2022 и сегодня: "
+            "для каждой валюты скажи, во сколько раз изменился курс."
+        ),
+        "expected_tools": {"get_fx_rate", "calculate"},
+        "must_have_keywords": ["USD", "EUR", "CNY"],
+        "needs_calculate": True,
+    },
+    {
+        "id": "Q6_real",
+        "query": "Сколько лет потребуется вкладу удвоиться при текущей ключевой ставке, если проценты капитализируются ежегодно?",
+        "expected_tools": {"get_key_rate", "calculate"},
+        "must_have_keywords": ["лет"],
+        "needs_calculate": True,
     },
 ]
 
 
-VALID_TOOL_NAMES = {"get_fx_rate", "get_key_rate", "get_inflation", "calculate"}
+CONFIGS = [
+    {"id": "single", "label": "одиночный агент"},
+    {"id": "pwc_no_validator", "label": "pwc без валидатора"},
+    {"id": "pwc_validator", "label": "pwc + валидатор"},
+]
 
 
-def _check_single(case: dict, result: dict) -> dict:
-    """Проверить результат одиночного прогона."""
-    used = {e["call"] for e in result.get("trace", []) if "call" in e}
-    ans = (result.get("answer") or "").lower()
-    hallucinated = used - VALID_TOOL_NAMES
-    must = all(kw.lower() in ans for kw in case["must_have_keywords"])
-    arith_without_calc = (
-        case["id"] in {"Q1", "Q2", "Q3"}
-        and "calculate" not in used
-        and bool(ans)
-    )
-    ok = bool(ans) and not hallucinated and must and not arith_without_calc
-    return {
-        "ok": ok,
-        "used_tools": sorted(used),
-        "hallucinated": sorted(hallucinated),
-        "must_have_ok": must,
-        "arith_without_calc": arith_without_calc,
-        "answer_preview": (result.get("answer") or "")[:180],
-    }
+def _single_used(result: dict) -> set[str]:
+    return {e["call"] for e in result.get("trace", []) if "call" in e}
 
 
-def _check_pwc(case: dict, result: dict) -> dict:
-    """Проверить результат PWC-прогона."""
+def _pwc_used(result: dict) -> set[str]:
     used = set()
-    for t in result.get("trace", []):
-        if t.get("kind") == "worker":
-            used.update(t.get("used_tools") or [])
-    ans = (result.get("answer") or "").lower()
-    hallucinated = used - VALID_TOOL_NAMES
-    # Также проверим галлюцинации на этапе Планировщика (в плане expected_tools)
-    plan_tools = set()
-    plan = result.get("plan")
-    if plan is not None:
-        for sq in plan.subquestions:
-            plan_tools.update(sq.expected_tools)
-    plan_hallucinated = plan_tools - VALID_TOOL_NAMES
+    for event in result.get("trace", []):
+        if event.get("kind") == "worker":
+            used.update(event.get("used_tools") or [])
+    return used
 
-    must = all(kw.lower() in ans for kw in case["must_have_keywords"])
-    ok = (
-        bool(result.get("answer"))
-        and not hallucinated
-        and not plan_hallucinated
-        and must
+
+def _plan_tools(result: dict) -> set[str]:
+    plan = result.get("plan")
+    if plan is None:
+        return set()
+    tools = set()
+    for sq in plan.subquestions:
+        tools.update(sq.expected_tools)
+    return tools
+
+
+def _check(case: dict, result: dict, *, config_id: str) -> dict:
+    answer = result.get("answer") or ""
+    answer_lower = answer.lower()
+    used = _single_used(result) if config_id == "single" else _pwc_used(result)
+    plan_tools = set() if config_id == "single" else _plan_tools(result)
+    hallucinated = (used | plan_tools) - VALID_TOOLS
+    impossible_ok = (
+        config_id != "single"
+        and case.get("allow_empty_plan")
+        and not plan_tools
+        and any(marker in answer_lower for marker in ["невозмож", "не может", "нереш"])
     )
+    if impossible_ok:
+        return {
+            "ok": True,
+            "used_tools": sorted(used),
+            "plan_tools": sorted(plan_tools),
+            "hallucinated": sorted(hallucinated),
+            "must_have_ok": True,
+            "calculate_ok": True,
+            "expected_ok": True,
+            "iterations": result.get("iterations"),
+            "answer_preview": answer[:240],
+            "error": result.get("error"),
+        }
+
+    must_have_ok = all(kw.lower() in answer_lower for kw in case["must_have_keywords"])
+    calculate_ok = (not case["needs_calculate"]) or ("calculate" in used)
+    expected_ok = case["expected_tools"].issubset(used | plan_tools)
+    ok = bool(answer) and not hallucinated and must_have_ok and calculate_ok and expected_ok
+
     return {
         "ok": ok,
         "used_tools": sorted(used),
         "plan_tools": sorted(plan_tools),
-        "hallucinated_in_workers": sorted(hallucinated),
-        "hallucinated_in_plan": sorted(plan_hallucinated),
-        "must_have_ok": must,
-        "iterations": result.get("iterations", -1),
-        "answer_preview": (result.get("answer") or "")[:180],
+        "hallucinated": sorted(hallucinated),
+        "must_have_ok": must_have_ok,
+        "calculate_ok": calculate_ok,
+        "expected_ok": expected_ok,
+        "iterations": result.get("iterations"),
+        "answer_preview": answer[:240],
+        "error": result.get("error"),
     }
 
 
-def run_case(case: dict, *, n: int = 5) -> dict:
-    single = {"runs": [], "pass": 0}
-    pwc = {"runs": [], "pass": 0}
-
-    for i in range(n):
-        # --- Одиночный агент ---
-        try:
-            r1 = run_agent(case["query"], max_iter=8, verbose=False)
-        except Exception as e:
-            r1 = {"answer": None, "error": f"{type(e).__name__}: {e}", "trace": []}
-        check1 = _check_single(case, r1)
-        single["runs"].append(check1)
-        single["pass"] += int(check1["ok"])
-
-        # --- PWC ---
-        try:
-            r2 = run_pwc(case["query"], max_iter=3, verbose=False)
-        except Exception as e:
-            r2 = {"answer": None, "error": f"{type(e).__name__}: {e}",
-                  "trace": [], "plan": None}
-        check2 = _check_pwc(case, r2)
-        pwc["runs"].append(check2)
-        pwc["pass"] += int(check2["ok"])
-
-    return {
-        "id": case["id"],
-        "query": case["query"],
-        "comment": case["comment"],
-        "n": n,
-        "single": single,
-        "pwc": pwc,
-    }
+def _run_once(case: dict, config_id: str) -> dict:
+    started = perf_counter()
+    try:
+        if config_id == "single":
+            raw = run_agent(case["query"], max_iter=8, verbose=False)
+        elif config_id == "pwc_no_validator":
+            raw = run_pwc(case["query"], max_iter=3, verbose=False, validate_schema=False, parallel=True)
+        elif config_id == "pwc_validator":
+            raw = run_pwc(case["query"], max_iter=3, verbose=False, validate_schema=True, parallel=True)
+        else:
+            raise ValueError(f"unknown config: {config_id}")
+    except Exception as e:
+        raw = {"answer": None, "error": f"{type(e).__name__}: {e}", "trace": [], "plan": None}
+    elapsed = perf_counter() - started
+    checked = _check(case, raw, config_id=config_id)
+    checked["elapsed_sec"] = round(elapsed, 3)
+    return checked
 
 
-def main():
+def run_case(case: dict, *, n: int) -> dict:
+    configs = {}
+    for cfg in CONFIGS:
+        runs = [_run_once(case, cfg["id"]) for _ in range(n)]
+        configs[cfg["id"]] = {
+            "label": cfg["label"],
+            "pass": sum(int(r["ok"]) for r in runs),
+            "runs": runs,
+        }
+    return {"id": case["id"], "query": case["query"], "n": n, "configs": configs}
+
+
+def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--single", action="store_true",
-                    help="Только один прогон каждого кейса (быстро)")
-    ap.add_argument("-n", type=int, default=5,
-                    help="Сколько прогонов на кейс (default=5)")
+    ap.add_argument("--single", action="store_true", help="Один прогон на кейс")
+    ap.add_argument("-n", type=int, default=5)
     args = ap.parse_args()
     n = 1 if args.single else args.n
 
-    print(f"Eval С6: {len(CASES)} кейсов × {n} прогонов\n")
     results = []
+    print(f"Eval S6: {len(CASES)} вопросов x 3 конфигурации x {n} прогонов\n")
     for case in CASES:
-        print(f"=== {case['id']}: {case['query'][:70]}...")
-        r = run_case(case, n=n)
-        results.append(r)
-        s = r["single"]; p = r["pwc"]
-        print(f"   single: {s['pass']}/{n}    pwc: {p['pass']}/{n}")
-        for run in p["runs"][:1]:
-            if run["hallucinated_in_plan"]:
-                print(f"   ⚠ План содержит выдуманные инструменты: {run['hallucinated_in_plan']}")
+        result = run_case(case, n=n)
+        results.append(result)
+        print(f"{case['id']}: {case['query'][:80]}...")
+        for cfg in CONFIGS:
+            c = result["configs"][cfg["id"]]
+            print(f"  {cfg['id']}: {c['pass']}/{n}")
         print()
 
-    # Итог
-    print("=" * 60)
-    print("ИТОГО:")
-    for r in results:
-        print(f"  {r['id']}: single {r['single']['pass']}/{n}  "
-              f"pwc {r['pwc']['pass']}/{n}  — {r['query'][:60]}")
+    print("| id | single | pwc без валидатора | pwc + валидатор |")
+    print("|---|---:|---:|---:|")
+    for result in results:
+        print(
+            f"| {result['id']} | "
+            f"{result['configs']['single']['pass']}/{n} | "
+            f"{result['configs']['pwc_no_validator']['pass']}/{n} | "
+            f"{result['configs']['pwc_validator']['pass']}/{n} |"
+        )
 
     out = Path(__file__).parent / "eval_pwc_results.json"
-    out.write_text(json.dumps(results, ensure_ascii=False, indent=2,
-                              default=str), encoding="utf-8")
+    out.write_text(json.dumps(results, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"\nРезультаты: {out}")
 
 

@@ -2,119 +2,1686 @@
   {
     "id": "Q1",
     "query": "Во сколько раз USD подорожал с 1 января 2022 по сегодня?",
-    "comment": "Класс ошибки C: одиночный часто считает в уме, не зовёт calculate. PWC должен починить — Planner обязан добавить calculate-подвопрос.",
-    "n": 1,
-    "single": {
-      "runs": [
-        {
-          "ok": true,
-          "used_tools": [
-            "calculate",
-            "get_fx_rate"
-          ],
-          "hallucinated": [],
-          "must_have_ok": true,
-          "arith_without_calc": false,
-          "answer_preview": "Курс доллара США **не подорожал, а подешевел** за этот период.\n\nНа 1 января 2022 года курс USD составлял **74,29 ₽**, а на сегодня (15 июня 2026) — **71,91 ₽**. Таким образом, долл"
-        }
-      ],
-      "pass": 1
-    },
-    "pwc": {
-      "runs": [
-        {
-          "ok": false,
-          "used_tools": [
-            "calculate",
-            "get_fx_rate"
-          ],
-          "plan_tools": [
-            "calculate",
-            "get_fx_rate"
-          ],
-          "hallucinated_in_workers": [],
-          "hallucinated_in_plan": [],
-          "must_have_ok": false,
-          "iterations": 1,
-          "answer_preview": "Курс USD на 1 января 2022 года (официальный курс ЦБ РФ) составлял **74,2926 рубля** за 1 доллар. · Курс доллара США к рублю на сегодня, 15 июня 2026 года, составляет **71,91 руб./$"
-        }
-      ],
-      "pass": 0
+    "n": 5,
+    "configs": {
+      "single": {
+        "label": "одиночный агент",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Доллар США подешевел в 0.9885 раза с 1 января 2022 по сегодняшнюю дату, то есть фактически стал немного дешевле, а не подорожал.",
+            "error": null,
+            "elapsed_sec": 10.504
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Доллар США подешевел в 0.9885 раз с 1 января 2022 года по сегодняшнюю дату, то есть фактически стал немного дешевле, а не подорожал.",
+            "error": null,
+            "elapsed_sec": 6.148
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Доллар США подешевел в 0.9885 раз с 1 января 2022 года по сегодняшнюю дату — то есть фактически немного снизился в цене относительно рубля, а не подорожал.",
+            "error": null,
+            "elapsed_sec": 7.81
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Доллар США подешевел в 0.9885 раза с 1 января 2022 по сегодняшнюю дату, то есть фактически стал немного дешевле, а не подорожал.",
+            "error": null,
+            "elapsed_sec": 6.663
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Доллар США подешевел в 0.9885 раз с 1 января 2022 года по сегодня — то есть фактически немного снизился в цене, а не подорожал.",
+            "error": null,
+            "elapsed_sec": 6.613
+          }
+        ]
+      },
+      "pwc_no_validator": {
+        "label": "pwc без валидатора",
+        "pass": 1,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 79.815
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 137.414
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Сегодня курс USD к рублю составляет 73.439 рубля за доллар. · Курс USD к рублю на сегодняшний день по сравнению с 1 января 2022 года изменился в 0.9885 раз ",
+            "error": null,
+            "elapsed_sec": 58.145
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 64.49
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 81.187
+          }
+        ]
+      },
+      "pwc_validator": {
+        "label": "pwc + валидатор",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 98.473
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 158.895
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 93.055
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 68.515
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 56.183
+          }
+        ]
+      }
     }
   },
   {
     "id": "Q2",
     "query": "Какая сейчас реальная ключевая ставка, если инфляцию брать по последнему доступному месяцу, а не по году?",
-    "comment": "Класс ошибки B: одиночный не умеет искать «последний доступный» месяц, зацикливается. PWC должен разбить на шаги.",
-    "n": 1,
-    "single": {
-      "runs": [
-        {
-          "ok": true,
-          "used_tools": [
-            "calculate",
-            "get_inflation",
-            "get_key_rate"
-          ],
-          "hallucinated": [],
-          "must_have_ok": true,
-          "arith_without_calc": false,
-          "answer_preview": "Готово. Вот итоговый ответ:\n\n**Реальная ключевая ставка сейчас составляет ≈ 5,77% годовых.**\n\nРасчёт: 16,0% (ключевая ставка) − 10,23% (инфляция за апрель 2025, % г/г).\n\n⚠️ Небольш"
-        }
-      ],
-      "pass": 1
-    },
-    "pwc": {
-      "runs": [
-        {
-          "ok": false,
-          "used_tools": [],
-          "plan_tools": [],
-          "hallucinated_in_workers": [],
-          "hallucinated_in_plan": [],
-          "must_have_ok": false,
-          "iterations": 3,
-          "answer_preview": ""
-        }
-      ],
-      "pass": 0
+    "n": 5,
+    "configs": {
+      "single": {
+        "label": "одиночный агент",
+        "pass": 4,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Реальная ключевая ставка на март 2024 года составляет 8.28% годовых. Данные по ставке получены из локального архива, так как актуальные данные ЦБ РФ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 6.3
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Реальная ключевая ставка на март 2024 года составляет 8.28% годовых. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 8.075
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Реальная ключевая ставка на март 2024 года составляет 8.28% годовых. Данные по ставке получены из локального архива, так как актуальные данные ЦБ РФ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 6.151
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Реальная ключевая ставка составляет 8.28 процентных пунктов. Данные по ставке взяты из локального архива, так как актуальные данные ЦБ на момент запроса недоступны.",
+            "error": null,
+            "elapsed_sec": 6.747
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Реальная ключевая ставка на июнь 2026 года составляет 8.28% годовых. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 6.404
+          }
+        ]
+      },
+      "pwc_no_validator": {
+        "label": "pwc без валидатора",
+        "pass": 3,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Инфляция в марте 2024 года составила 7,72% г/г (данные из архива Росстата). · Ключевая ставка ЦБ на 2024-03-31 составляла 16.0% годовых (данные из локального архива, так как ЦБ временно недоступен). · Реальная ключевая ставка в марте 2024 г",
+            "error": null,
+            "elapsed_sec": 36.912
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Последний доступный месяц в данных по инфляции — декабрь 2023 года, ИПЦ составил 7,42% г/г (данные из локального архива Росстата). · Инфляция (ИПЦ г/г) на конец декабря 2023 года составила 7,42% (данные из локального архива Росстата). · Клю",
+            "error": null,
+            "elapsed_sec": 67.322
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 85.769
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Последние доступные данные об инфляции — за март 2024 года, согласно архиву Росстата. · Инфляция в процентах за март 2024 года составила 7.72% г/г (данные из архива Росстата). · Ключевая ставка ЦБ на последний день последнего доступного мес",
+            "error": null,
+            "elapsed_sec": 48.531
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 93.404
+          }
+        ]
+      },
+      "pwc_validator": {
+        "label": "pwc + валидатор",
+        "pass": 2,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 103.019
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Инфляция в последнем доступном месяце (март 2024 года) составила 7.72% г/г, данные из локального архива Росстата. · Ключевая ставка на 31 марта 2024 года составляла 16.0%, данные из локального архива. · Реальная ключевая ставка на март 2024",
+            "error": null,
+            "elapsed_sec": 67.898
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 108.617
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Последний доступный месяц в данных по инфляции — декабрь 2023 года, ИПЦ составил 7,42% г/г (данные из локального архива Росстата). · Инфляция г/г в последнем доступном месяце (декабрь 2023 года) составила 7,42% (данные из локального архива ",
+            "error": null,
+            "elapsed_sec": 61.365
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 145.618
+          }
+        ]
+      }
     }
   },
   {
     "id": "Q3",
     "query": "Какова накопленная инфляция с января 2022 по март 2026? Рассчитай как произведение всех (1 + ипц_м/100) по месяцам.",
-    "comment": "Класс ошибки D (граница паттерна): требует get_inflation за много месяцев + большое calculate-выражение. Одиночный галлюцинирует get_cumulative_inflation; PWC обычно тоже (Planner может добавить фейк-tool в план). Это — повод для Schema-Validator в домашке.",
-    "n": 1,
-    "single": {
-      "runs": [
-        {
-          "ok": false,
-          "used_tools": [
-            "calculate",
-            "get_inflation"
-          ],
-          "hallucinated": [],
-          "must_have_ok": false,
-          "arith_without_calc": false,
-          "answer_preview": ""
-        }
-      ],
-      "pass": 0
-    },
-    "pwc": {
-      "runs": [
-        {
-          "ok": false,
-          "used_tools": [],
-          "plan_tools": [],
-          "hallucinated_in_workers": [],
-          "hallucinated_in_plan": [],
-          "must_have_ok": false,
-          "iterations": 3,
-          "answer_preview": ""
-        }
-      ],
-      "pass": 0
+    "n": 5,
+    "configs": {
+      "single": {
+        "label": "одиночный агент",
+        "pass": 4,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция с января 2022 по март 2026 составила примерно 8487% (индекс цен вырос в 85.87 раза), рассчитано по данным Росстата.",
+            "error": null,
+            "elapsed_sec": 31.709
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция с января 2022 по март 2026 составила примерно 8487% (индекс цен вырос в 85.87 раза). Данные по инфляции — из архива Росстата.",
+            "error": null,
+            "elapsed_sec": 38.352
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция с января 2022 по март 2026 составила примерно 85.87 раза (рост цен в 85.87 раза), рассчитано по месячным ИПЦ Росстата.",
+            "error": null,
+            "elapsed_sec": 32.431
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция с января 2022 по март 2026 составила примерно 8487% (индекс цен вырос в 85.87 раза). Данные по инфляции — из архива Росстата.",
+            "error": null,
+            "elapsed_sec": 30.099
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция с января 2022 по март 2026 составила примерно 8487% (множитель роста цен — 85.87), рассчитано по данным ИПЦ от Росстата.",
+            "error": null,
+            "elapsed_sec": 31.51
+          }
+        ]
+      },
+      "pwc_no_validator": {
+        "label": "pwc без валидатора",
+        "pass": 5,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Запрошенный период включает месяцы, выходящие за пределы текущей даты (март 2026), что делает данные по инфляции за эти месяцы недоступными. Накопленная инфляция может быть рассчитана только на основе фактических данных, а прогнозные значен",
+            "error": null,
+            "elapsed_sec": 11.731
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Для расчёта накопленной инфляции с января 2022 по март 2026 необходимо получить ИПЦ для каждого месяца в этом диапазоне. Однако инструмент get_inflation предоставляет данные только по доступным месяцам, а данные на март 2026 года ещё не сущ",
+            "error": null,
+            "elapsed_sec": 3.008
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Запрос требует вычисления накопленной инфляции через произведение месячных индексов за период с января 2022 по март 2026. Однако доступный инструмент get_inflation возвращает ИПЦ г/г, а не месячные темпы роста. Кроме того, данные за 2026 го",
+            "error": null,
+            "elapsed_sec": 4.446
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Для расчёта накопленной инфляции с января 2022 по март 2026 необходимо получить ИПЦ по каждому месяцу в этом диапазоне. Однако инструмент get_inflation предоставляет данные только по доступным месяцам, а будущие периоды (например, 2025–2026",
+            "error": null,
+            "elapsed_sec": 17.858
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Для расчёта накопленной инфляции с января 2022 по март 2026 необходимо получить значения ИПЦ для каждого месяца в этом диапазоне. Так как доступен только инструмент get_inflation(year, month), нужно последовательно запросить данные по каждо",
+            "error": null,
+            "elapsed_sec": 5.417
+          }
+        ]
+      },
+      "pwc_validator": {
+        "label": "pwc + валидатор",
+        "pass": 5,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Запрошенный период включает будущие даты (март 2026), для которых данные об инфляции недоступны. Накопленная инфляция не может быть рассчитана, так как отсутствуют значения ИПЦ на будущие месяцы. Задача нерешаема с текущими инструментами.",
+            "error": null,
+            "elapsed_sec": 10.45
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Для расчёта накопленной инфляции с января 2022 по март 2026 необходимо получить значения ИПЦ для каждого месяца в этом диапазоне. Затем нужно вычислить произведение (1 + ипц_м/100) по всем месяцам. Однако доступный инструмент get_inflation ",
+            "error": null,
+            "elapsed_sec": 5.339
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Для расчёта накопленной инфляции с января 2022 по март 2026 необходимо получить значения ИПЦ для каждого месяца в этом диапазоне. Так как доступен только инструмент get_inflation(year, month), нужно последовательно запросить данные по каждо",
+            "error": null,
+            "elapsed_sec": 4.188
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Запрос требует вычисления накопленной инфляции через произведение месячных индексов. Однако доступен только инструмент get_inflation(year, month), возвращающий ИПЦ в виде годового процента (г/г), а не месячные индексы. Восстановить точные м",
+            "error": null,
+            "elapsed_sec": 11.832
+          },
+          {
+            "ok": true,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 0,
+            "answer_preview": "Для расчёта накопленной инфляции с января 2022 по март 2026 необходимо получить значения ИПЦ для каждого месяца в этом диапазоне. Затем нужно вычислить произведение (1 + инфляция_в_процентах/100) для всех месяцев. Так как данные по инфляции",
+            "error": null,
+            "elapsed_sec": 4.49
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "Q4_validator",
+    "query": "Какова накопленная инфляция за 2024 год? Не используй выдуманные агрегированные инструменты.",
+    "n": 5,
+    "configs": {
+      "single": {
+        "label": "одиночный агент",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция за 2024 год по итогам сентября составляет 8,63% г/г согласно данным Росстата.",
+            "error": null,
+            "elapsed_sec": 7.577
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция за 2024 год по итогам сентября составляет 8,63% г/г согласно данным Росстата.",
+            "error": null,
+            "elapsed_sec": 6.574
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция за 2024 год по итогам сентября составляет 8,63% г/г согласно данным Росстата.",
+            "error": null,
+            "elapsed_sec": 6.741
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция за 2024 год по итогам сентября составила 8,63% г/г (ИПЦ по данным Росстата).",
+            "error": null,
+            "elapsed_sec": 7.003
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": null,
+            "answer_preview": "Накопленная инфляция за 2024 год по итогам сентября составляет 8,63% г/г согласно данным Росстата.",
+            "error": null,
+            "elapsed_sec": 6.709
+          }
+        ]
+      },
+      "pwc_no_validator": {
+        "label": "pwc без валидатора",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 48.861
+          },
+          {
+            "ok": false,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 0,
+            "answer_preview": "Накопленная инфляция за год — это совокупный рост цен за весь год, который можно получить только как цепочку месячных изменений. Однако доступен только инструмент get_inflation(year, month), возвращающий ИПЦ в формате г/г на конец месяца. Ч",
+            "error": null,
+            "elapsed_sec": 4.007
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [
+              "get_inflation"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 48.509
+          },
+          {
+            "ok": false,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 0,
+            "answer_preview": "Накопленная инфляция за год — это совокупный рост цен за 12 месяцев, который можно вычислить только по фактическим значениям ИПЦ на каждый месяц. Доступный инструмент get_inflation возвращает ИПЦ г/г на конец месяца, но накопленная инфляция",
+            "error": null,
+            "elapsed_sec": 5.455
+          },
+          {
+            "ok": false,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 0,
+            "answer_preview": "Накопленная инфляция за год — это совокупный рост цен за 12 месяцев, который можно вычислить только по фактическим значениям ИПЦ за каждый месяц. Доступный инструмент get_inflation возвращает ИПЦ г/г на конец месяца, но накопленная инфляция",
+            "error": null,
+            "elapsed_sec": 4.081
+          }
+        ]
+      },
+      "pwc_validator": {
+        "label": "pwc + валидатор",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 0,
+            "answer_preview": "Накопленная инфляция за год — это совокупный рост цен за 12 месяцев, который можно вычислить только по фактическим значениям ИПЦ за каждый месяц. Доступный инструмент get_inflation возвращает ИПЦ г/г на конец месяца, но накопленная инфляция",
+            "error": null,
+            "elapsed_sec": 4.935
+          },
+          {
+            "ok": false,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 0,
+            "answer_preview": "Накопленная инфляция за год — это совокупный рост цен за 12 месяцев, который можно вычислить только по фактическим значениям ИПЦ за каждый месяц. Доступный инструмент get_inflation возвращает ИПЦ г/г на конец месяца, но для накопленной инфл",
+            "error": null,
+            "elapsed_sec": 3.439
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "get_inflation"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 55.966
+          },
+          {
+            "ok": false,
+            "used_tools": [],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": false,
+            "expected_ok": false,
+            "iterations": 0,
+            "answer_preview": "Накопленная инфляция за год — это совокупный рост цен за весь год, который можно вычислить только по фактическим значениям ИПЦ на конец каждого месяца. Однако доступен только инструмент get_inflation(year, month), возвращающий ИПЦ г/г на ко",
+            "error": null,
+            "elapsed_sec": 4.868
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_inflation"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 73.651
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "Q5_parallel",
+    "query": "Сравни курсы USD, EUR и CNY на 1 января 2022 и сегодня: для каждой валюты скажи, во сколько раз изменился курс.",
+    "n": 5,
+    "configs": {
+      "single": {
+        "label": "одиночный агент",
+        "pass": 5,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Курс USD снизился в 0.989 раз (на 1.1%) с 1 января 2022 года по сегодняшний день, курс EUR вырос в 1.001 раз (на 0.1%), а курс CNY снизился в 0.928 раз (на 7.2%).",
+            "error": null,
+            "elapsed_sec": 15.893
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Курс USD с 1 января 2022 года снизился в 0.9885 раз (на 1.15%), EUR — вырос в 1.0012 раз (на 0.12%), CNY — снизился в 0.9275 раз (на 7.25%).",
+            "error": null,
+            "elapsed_sec": 12.478
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Курс USD к 21 июня 2026 года снизился в 0.9885 раз (на 1.15%) по сравнению с 1 января 2022 года. Курс EUR вырос в 1.0012 раз (на 0.12%), а курс CNY снизился в 0.9275 раз (на 7.25%).",
+            "error": null,
+            "elapsed_sec": 11.492
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Курс USD с 1 января 2022 года снизился в 0.9885 раз (на 1.15%), EUR — вырос в 1.0012 раз (на 0.12%), CNY — снизился в 0.9275 раз (на 7.25%).",
+            "error": null,
+            "elapsed_sec": 15.239
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "Курс USD к 21 июня 2026 года снизился в 0.9885 раз (на 1.15%) по сравнению с 1 января 2022 года.  \nКурс EUR вырос в 1.0012 раз (на 0.12%).  \nКурс CNY снизился в 0.9275 раз (на 7.25%).",
+            "error": null,
+            "elapsed_sec": 11.798
+          }
+        ]
+      },
+      "pwc_no_validator": {
+        "label": "pwc без валидатора",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 1,
+            "answer_preview": "Курс доллара к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар по данным ЦБ РФ. · Курс доллара США к рублю на сегодня составляет 73.439 рубля за 1 доллар. · Курс доллара к рублю с 1 января 2022 года по сегодняшний день изменил",
+            "error": null,
+            "elapsed_sec": 30.756
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 1,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составил 74,2926 рубля за 1 доллар. · Курс доллара США к рублю на сегодня составляет 73.439 рубля за 1 доллар. · Курс евро к рублю на 1 января 2022 года составлял 84,07 рубля за евро. · Курс ев",
+            "error": null,
+            "elapsed_sec": 25.636
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 1,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составил 74,29 рубля за 1 доллар. · Курс доллара США к рублю на сегодня составляет 73.439 рубля за 1 доллар. · Курс евро к рублю на 1 января 2022 года составлял 84,07 рубля за евро по данным ЦБ",
+            "error": null,
+            "elapsed_sec": 24.361
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Курс доллара США к рублю на сегодня составляет 73,439 рубля за 1 доллар. · Курс евро к рублю на 1 января 2022 года составлял 84,0695 рубля за евро по данным",
+            "error": null,
+            "elapsed_sec": 96.488
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Курс доллара США к рублю на сегодня составляет 73.439 рубля за 1 доллар. · Курс доллара к рублю с 1 января 2022 года по сегодняшний день изменился в 0.9885 ",
+            "error": null,
+            "elapsed_sec": 122.178
+          }
+        ]
+      },
+      "pwc_validator": {
+        "label": "pwc + валидатор",
+        "pass": 2,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 1,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составил 74,29 рубля за 1 доллар. · Курс доллара к рублю сегодня составляет 73.439 рубля за 1 USD. · Курс евро к рублю на 1 января 2022 года составлял 84,0695 рубля за евро. · Курс евро к рублю",
+            "error": null,
+            "elapsed_sec": 29.096
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 1,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,2926 рубля за 1 доллар. · Курс доллара США к рублю на сегодня составляет 73,439 рубля за 1 доллар. · Курс евро к рублю на 1 января 2022 года составлял 84,07 рубля за евро по данным",
+            "error": null,
+            "elapsed_sec": 66.058
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Текущий курс USD к рублю составляет 73.439 рубля за доллар. · Курс USD к рублю с 1 января 2022 года по сегодняшний день изменился в 0.9885 раз (данные из ло",
+            "error": null,
+            "elapsed_sec": 97.507
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 1,
+            "answer_preview": "Курс доллара США к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Текущий курс USD к рублю составляет 73.439 рубля за доллар. · Курс USD к рублю с 1 января 2022 года по сегодняшний день изменился в 0.9885 раз (данные из ло",
+            "error": null,
+            "elapsed_sec": 29.523
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_fx_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Курс доллара к рублю на 1 января 2022 года составлял 74,29 рубля за 1 доллар. · Курс доллара США к рублю на сегодня составляет 73,439 рубля за 1 доллар. · Курс доллара к рублю с 1 января 2022 года по сегодняшний день изменился в 0.9885 раз ",
+            "error": null,
+            "elapsed_sec": 65.022
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "Q6_real",
+    "query": "Сколько лет потребуется вкладу удвоиться при текущей ключевой ставке, если проценты капитализируются ежегодно?",
+    "n": 5,
+    "configs": {
+      "single": {
+        "label": "одиночный агент",
+        "pass": 0,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "При текущей ключевой ставке 16% годовых вклад удвоится примерно за 4.7 года при ежегодной капитализации процентов. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 6.255
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "При текущей ключевой ставке 16% годовых вклад удвоится примерно за 4.7 года при ежегодной капитализации процентов. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 7.211
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "При текущей ключевой ставке 16% годовых вклад удвоится за примерно 4.67 года при ежегодной капитализации процентов. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 5.831
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "При текущей ключевой ставке 16% годовых вклад удвоится примерно за 4.7 года при ежегодной капитализации процентов. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 8.018
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": null,
+            "answer_preview": "При текущей ключевой ставке 16% годовых вклад удвоится за примерно 4.7 года при ежегодной капитализации процентов. Данные по ставке получены из локального архива, так как актуальные данные ЦБ временно недоступны.",
+            "error": null,
+            "elapsed_sec": 5.708
+          }
+        ]
+      },
+      "pwc_no_validator": {
+        "label": "pwc без валидатора",
+        "pass": 2,
+        "runs": [
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Текущая ключевая ставка ЦБ составляет 16,0% годовых (данные из локального архива, действует с 20 марта 2026 года). · Для удвоения вклада при текущей ключевой ставке 16,0% годовых по правилу 72 потребуется 4,5 года (данные из локального архи",
+            "error": null,
+            "elapsed_sec": 39.723
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 60.82
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 65.57
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Текущая ключевая ставка ЦБ составляет 16,0% годовых (данные из локального архива, действительны с 20 марта 2026 года). · Для удвоения вклада при текущей ключевой ставке 16,0% годовых с ежегодной капитализацией потребуется около 4,7 лет (дан",
+            "error": null,
+            "elapsed_sec": 47.102
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Текущая ключевая ставка составляет 16,0% годовых (данные из локального архива, действительны с 20 марта 2026 года). · Для удвоения вклада при текущей ключевой ставке 16,0% годовых с ежегодной капитализацией потребуется около 4,7 лет (данные",
+            "error": null,
+            "elapsed_sec": 39.04
+          }
+        ]
+      },
+      "pwc_validator": {
+        "label": "pwc + валидатор",
+        "pass": 2,
+        "runs": [
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "Текущая ключевая ставка ЦБ составляет 16,0% годовых (данные из локального архива, действительны с 20 марта 2026 года). · Для удвоения вклада при годовой ставке 16,0% с ежегодной капитализацией потребуется около 4,7 лет (данные из локального",
+            "error": null,
+            "elapsed_sec": 59.385
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 73.71
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 69.477
+          },
+          {
+            "ok": false,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": false,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 3,
+            "answer_preview": "",
+            "error": "не удалось получить вердикт 'accept' за 3 итераций",
+            "elapsed_sec": 73.819
+          },
+          {
+            "ok": true,
+            "used_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "plan_tools": [
+              "calculate",
+              "get_key_rate"
+            ],
+            "hallucinated": [],
+            "must_have_ok": true,
+            "calculate_ok": true,
+            "expected_ok": true,
+            "iterations": 2,
+            "answer_preview": "Текущая ключевая ставка составляет 16,0% годовых (данные из локального архива, действует с 20 марта 2026 года). · Для удвоения вклада при текущей ключевой ставке 16,0% с ежегодной капитализацией потребуется около 4,7 лет (данные из локально",
+            "error": null,
+            "elapsed_sec": 37.255
+          }
+        ]
+      }
     }
   }
 ]

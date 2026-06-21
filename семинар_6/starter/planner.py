@@ -61,7 +61,10 @@ def planner(question: str, *, feedback: str | None = None) -> Plan:
     #
     if feedback:
         messages.append(
-            {"user": f"Предыдущая попытка не прошла проверку. Замечание: {feedback}"}
+            {
+                "role": "user",
+                "content": f"Предыдущая попытка не прошла проверку. Замечание: {feedback}",
+            }
         )
 
     return client.chat.completions.create(
