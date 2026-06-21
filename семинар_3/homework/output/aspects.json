@@ -1,0 +1,566 @@
+[
+  {
+    "review_id": "r001",
+    "aspects": [
+      {
+        "aspect": "design",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "дизайн очень понятный и приятный. Кнопки на своих местах, глаза не устают"
+      }
+    ]
+  },
+  {
+    "review_id": "r002",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Надежность просто на нуле, пользоваться невозможно!"
+      }
+    ]
+  },
+  {
+    "review_id": "r003",
+    "aspects": [
+      {
+        "aspect": "ads",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Эта реклама акций жутко раздражает, пришлось отключить уведомления"
+      }
+    ]
+  },
+  {
+    "review_id": "r004",
+    "aspects": [
+      {
+        "aspect": "support",
+        "sentiment": "negative",
+        "confidence": 0.98,
+        "score": -1.0,
+        "quote": "Техподдержка абсолютно бесполезна. Курьер не привез половину заказа, а в чате отвечает тупой бот по скрипту. Живого человека не дозваться."
+      }
+    ]
+  },
+  {
+    "review_id": "r005",
+    "aspects": [
+      {
+        "aspect": "price",
+        "sentiment": "negative",
+        "confidence": 0.9,
+        "score": -1.0,
+        "quote": "Цена доставки немного кусается, если заказ маленький"
+      },
+      {
+        "aspect": "reliability",
+        "sentiment": "positive",
+        "confidence": 0.85,
+        "score": 1.0,
+        "quote": "зато продукты всегда свежие"
+      }
+    ]
+  },
+  {
+    "review_id": "r006",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Приложение летает! Производительность на высоте даже на моем стареньком андроиде, ничего не тормозит при скроллинге огромного каталога."
+      }
+    ]
+  },
+  {
+    "review_id": "r007",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.95,
+        "quote": "Списали деньги за отмененный заказ!"
+      },
+      {
+        "aspect": "support",
+        "sentiment": "negative",
+        "confidence": 0.98,
+        "score": -0.98,
+        "quote": "Поддержка молчит уже третьи сутки."
+      }
+    ]
+  },
+  {
+    "review_id": "r008",
+    "aspects": [
+      {
+        "aspect": "design",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 0.9,
+        "quote": "Темная тема в приложении выглядит шикарно. Дизайн 10 из 10"
+      },
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.8,
+        "score": -0.5,
+        "quote": "снижаю балл за редкие лаги на карте курьера"
+      }
+    ]
+  },
+  {
+    "review_id": "r009",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.95,
+        "quote": "а она пустая! Никакой надежности, все сбросилось, собирать заново нет желания"
+      }
+    ]
+  },
+  {
+    "review_id": "r010",
+    "aspects": [
+      {
+        "aspect": "price",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Отличная ценовая политика, постоянно дают промокоды на скидку, получается выгоднее, чем ходить в магазин у дома."
+      }
+    ]
+  },
+  {
+    "review_id": "r011",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Приложение сильно греет телефон и жрет батарею. Надо срочно что-то делать с производительностью, оптимизация хромает."
+      }
+    ]
+  },
+  {
+    "review_id": "r012",
+    "aspects": [
+      {
+        "aspect": "ads",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Реклама каких-то левых банков прямо на главной странице магазина продуктов!"
+      }
+    ]
+  },
+  {
+    "review_id": "r013",
+    "aspects": [
+      {
+        "aspect": "design",
+        "sentiment": "negative",
+        "confidence": 0.9,
+        "score": -0.7,
+        "quote": "Надо доработать дизайн поиска"
+      },
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.8,
+        "quote": "поиск по каталогу работает криво, часто не находит товар по синонимам"
+      }
+    ]
+  },
+  {
+    "review_id": "r014",
+    "aspects": [
+      {
+        "aspect": "price",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Итоговая цена заказа неприятно удивляет на этапе оплаты"
+      }
+    ]
+  },
+  {
+    "review_id": "r015",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "надежность 100%"
+      },
+      {
+        "aspect": "performance",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 0.95,
+        "quote": "Самое стабильное приложение из всех доставок. Ни разу не зависло на моменте оплаты"
+      }
+    ]
+  },
+  {
+    "review_id": "r016",
+    "aspects": [
+      {
+        "aspect": "support",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.95,
+        "quote": "Оператор в поддержке просто нахамил мне, когда я пожаловалась на просроченное молоко. Отвратительное отношение к клиентам."
+      }
+    ]
+  },
+  {
+    "review_id": "r017",
+    "aspects": [
+      {
+        "aspect": "design",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.8,
+        "quote": "Всё слишком мелко. Шрифт в карточке товара невозможно прочитать без лупы. Дизайнерам минус."
+      }
+    ]
+  },
+  {
+    "review_id": "r018",
+    "aspects": [
+      {
+        "aspect": "ads",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 0.9,
+        "quote": "Спасибо, что не пихаете рекламу из каждого утюга."
+      }
+    ]
+  },
+  {
+    "review_id": "r019",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "При оплате по СБП приложение намертво зависает. Производительность приложения в критические моменты просто ужасная."
+      }
+    ]
+  },
+  {
+    "review_id": "r020",
+    "aspects": [
+      {
+        "aspect": "support",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Вернули деньги промокодом буквально за 2 минуты! Лучший саппорт!"
+      }
+    ]
+  },
+  {
+    "review_id": "r021",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Картинки загружаются по 5 секунд каждая. Либо ваши сервера не тянут, либо производительность приложения плохая."
+      }
+    ]
+  },
+  {
+    "review_id": "r022",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Надежность сервиса пробила дно."
+      }
+    ]
+  },
+  {
+    "review_id": "r023",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "positive",
+        "confidence": 0.9,
+        "score": 0.8,
+        "quote": "В целом все работает четко"
+      },
+      {
+        "aspect": "reliability",
+        "sentiment": "positive",
+        "confidence": 0.85,
+        "score": 0.7,
+        "quote": "надежно. Был один глюк со списанием бонусов, но он сам прошел"
+      }
+    ]
+  },
+  {
+    "review_id": "r024",
+    "aspects": [
+      {
+        "aspect": "ads",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Баннеры с акциями занимают пол-экрана! Чтобы добраться до каталога, надо пролистать тонну рекламы."
+      }
+    ]
+  },
+  {
+    "review_id": "r025",
+    "aspects": [
+      {
+        "aspect": "price",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 1.0,
+        "quote": "Очень низкие цены по сравнению с конкурентами, плюс бесплатная доставка от небольшой суммы."
+      }
+    ]
+  },
+  {
+    "review_id": "r026",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Анимации тормозят, приложение дергается при скролле."
+      }
+    ]
+  },
+  {
+    "review_id": "r027",
+    "aspects": [
+      {
+        "aspect": "price",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Минимальная сумма заказа слишком высокая. Для одного человека заказать обед цена выходит неадекватная."
+      }
+    ]
+  },
+  {
+    "review_id": "r028",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Сбоев в работе не замечал, работает как часы"
+      },
+      {
+        "aspect": "reliability",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "надежность устраивает"
+      }
+    ]
+  },
+  {
+    "review_id": "r029",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Очень ненадежно в непогоду"
+      }
+    ]
+  },
+  {
+    "review_id": "r030",
+    "aspects": [
+      {
+        "aspect": "design",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Дизайн делает процесс покупок приятным"
+      }
+    ]
+  },
+  {
+    "review_id": "r031",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Списали деньги дважды!"
+      },
+      {
+        "aspect": "support",
+        "sentiment": "negative",
+        "confidence": 0.9,
+        "score": -0.9,
+        "quote": "поддержка QuickMarket утверждает, что все ок"
+      }
+    ]
+  },
+  {
+    "review_id": "r032",
+    "aspects": [
+      {
+        "aspect": "support",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.8,
+        "quote": "Чат поддержки спрятали куда-то в самые дебри настроек профиля. Еле нашла, как им написать."
+      }
+    ]
+  },
+  {
+    "review_id": "r033",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Работает плавно, без фризов. Отличная производительность, чувствуется, что разработчики постарались."
+      }
+    ]
+  },
+  {
+    "review_id": "r034",
+    "aspects": [
+      {
+        "aspect": "design",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -1.0,
+        "quote": "Дизайн явно не до конца продуман."
+      }
+    ]
+  },
+  {
+    "review_id": "r035",
+    "aspects": [
+      {
+        "aspect": "support",
+        "sentiment": "positive",
+        "confidence": 1.0,
+        "score": 1.0,
+        "quote": "Девушка в поддержке очень вежливо помогла добавить забытый товар в уже оформленный заказ. Спасибо ей большое!"
+      }
+    ]
+  },
+  {
+    "review_id": "r036",
+    "aspects": [
+      {
+        "aspect": "ads",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Реклама бесит ужасно"
+      },
+      {
+        "aspect": "price",
+        "sentiment": "negative",
+        "confidence": 0.85,
+        "score": -0.7,
+        "quote": "Запускаешь приложение, а тебе в лицо всплывает окно с предложением купить подписку"
+      }
+    ]
+  },
+  {
+    "review_id": "r037",
+    "aspects": [
+      {
+        "aspect": "reliability",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Надежность приложения страдает от таких багов"
+      }
+    ]
+  },
+  {
+    "review_id": "r038",
+    "aspects": [
+      {
+        "aspect": "price",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 0.9,
+        "quote": "Цены на сами продукты приятные, почти без наценки."
+      }
+    ]
+  },
+  {
+    "review_id": "r039",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "negative",
+        "confidence": 0.95,
+        "score": -0.9,
+        "quote": "Ужасная производительность и трата памяти телефона"
+      }
+    ]
+  },
+  {
+    "review_id": "r040",
+    "aspects": [
+      {
+        "aspect": "performance",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 1.0,
+        "quote": "Быстро"
+      },
+      {
+        "aspect": "reliability",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 1.0,
+        "quote": "надежно"
+      },
+      {
+        "aspect": "design",
+        "sentiment": "positive",
+        "confidence": 0.9,
+        "score": 0.9,
+        "quote": "красиво"
+      },
+      {
+        "aspect": "support",
+        "sentiment": "positive",
+        "confidence": 0.95,
+        "score": 1.0,
+        "quote": "саппорт всегда на стороне клиента"
+      }
+    ]
+  }
+]

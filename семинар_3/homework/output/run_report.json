@@ -1,0 +1,27 @@
+{
+  "model": "qwen/qwen3-235b-a22b-2507",
+  "input_count": 40,
+  "valid_count": 40,
+  "validation_errors": [],
+  "validation_error_count": 0,
+  "quote_count": 101,
+  "ghost_quotes_count": 0,
+  "ghost_quote_rate": 0.0,
+  "judge_overall_score": 1.0,
+  "reran_reduce_after_low_judge_score": false,
+  "usage": {
+    "prompt_tokens": 71904,
+    "completion_tokens": 16936,
+    "cache_hit_tokens": 0,
+    "cache_miss_tokens": 71904
+  },
+  "cost_report": {
+    "baseline_input_cost_usd": 0.01941408,
+    "actual_input_cost_usd": 0.01941408,
+    "output_cost_usd": 0.0186296,
+    "total_actual_cost_usd": 0.038043679999999996,
+    "savings_usd": 0.0,
+    "cache_hit_rate": 0.0
+  },
+  "elapsed_sec": 518.4409201145172
+}
