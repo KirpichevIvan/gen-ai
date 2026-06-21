@@ -124,4 +124,46 @@ TOOL_SCHEMAS = [
             },
         },
     },
+    {
+        "type": "function",
+        "function": {
+            "name": "compare_periods",
+            "description": (
+                "Compare one macro metric between two periods and return both absolute change "
+                "(delta = b - a) and multiplicative change (ratio = b / a). Use this first "
+                "for questions like 'во сколько раз вырос', 'на сколько изменился', "
+                "'сравни с января 2022 по апрель 2026'. Internally it uses get_fx_rate, "
+                "get_key_rate, get_inflation, or get_unemployment; do not duplicate that work."
+            ),
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "type": "string",
+                        "enum": [
+                            "key_rate",
+                            "fx_USD",
+                            "fx_EUR",
+                            "fx_CNY",
+                            "cpi",
+                            "unemployment",
+                        ],
+                        "description": (
+                            "Metric to compare: key_rate, fx_USD, fx_EUR, fx_CNY, cpi, "
+                            "or unemployment."
+                        ),
+                    },
+                    "period_a": {
+                        "type": "string",
+                        "description": "First period in YYYY-MM or YYYY-MM-DD format.",
+                    },
+                    "period_b": {
+                        "type": "string",
+                        "description": "Second period in YYYY-MM or YYYY-MM-DD format.",
+                    },
+                },
+                "required": ["metric", "period_a", "period_b"],
+            },
+        },
+    },
 ]

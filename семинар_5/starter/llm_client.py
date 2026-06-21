@@ -56,9 +56,13 @@ T = TypeVar("T")
 
 
 def _make_openai_client() -> OpenAI:
-    base = os.environ.get("LLM_BASE_URL")
+    base = os.environ.get("LLM_BASE_URL") or os.environ.get("OPENROUTER_BASE_URL")
     if base:
-        key = os.environ.get("LLM_AUTH_TOKEN") or os.environ.get("OPENAI_API_KEY")
+        key = (
+            os.environ.get("LLM_AUTH_TOKEN")
+            or os.environ.get("OPENROUTER_API_KEY")
+            or os.environ.get("OPENAI_API_KEY")
+        )
         if not key:
             raise RuntimeError(
                 "LLM_AUTH_TOKEN не задан. Либо экспортируй токен, "
@@ -78,7 +82,7 @@ def _make_openai_client() -> OpenAI:
 
 
 def get_model() -> str:
-    return os.environ.get("LLM_MODEL", "gpt-4.1-mini")
+    return os.environ.get("LLM_MODEL") or os.environ.get("OPENROUTER_MODEL", "gpt-4.1-mini")
 
 
 # ---------------------------------------------------------------------------

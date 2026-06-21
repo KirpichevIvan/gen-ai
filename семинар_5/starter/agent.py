@@ -21,6 +21,7 @@ import argparse
 import datetime
 import json
 import sys
+import uuid
 from concurrent.futures import ThreadPoolExecutor
 from json.decoder import JSONDecodeError
 from pathlib import Path
@@ -32,7 +33,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from llm_client import get_model, make_client, make_raw_client
 from schemas import TOOL_SCHEMAS
-from tools import calculate, get_fx_rate, get_inflation, get_key_rate, get_unemployment
+from tools import (
+    calculate,
+    compare_periods,
+    get_fx_rate,
+    get_inflation,
+    get_key_rate,
+    get_unemployment,
+)
 
 # набор инструментов
 TOOLS_IMPL = {
@@ -40,6 +48,7 @@ TOOLS_IMPL = {
     "get_key_rate": get_key_rate,
     "get_inflation": get_inflation,
     "get_unemployment": get_unemployment,
+    "compare_periods": compare_periods,
     "calculate": calculate,
 }
 
@@ -93,6 +102,22 @@ CACHE_STATS = {"hits": 0, "misses": 0}
 # блок 10 — грубая оценка стоимости. Цена за 1 млн токенов, USD (ориентир DeepSeek).
 PRICE_IN_PER_MTOK = 0.14
 PRICE_OUT_PER_MTOK = 0.28
+DEFAULT_TRACE_PATH = Path(__file__).resolve().parent / "trace.jsonl"
+
+
+def _write_jsonl(path: Path, event: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("a", encoding="utf-8") as f:
+        f.write(json.dumps(event, ensure_ascii=False) + "\n")
+
+
+def _trace_event(run_id: str, step: int, payload: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "run_id": run_id,
+        "ts": datetime.datetime.now().replace(microsecond=0).isoformat(),
+        "step": step,
+        **payload,
+    }
 
 
 _BASE_RULES = """\
@@ -104,6 +129,7 @@ _BASE_RULES = """\
 - get_key_rate: ключевая ставка Цб на дату
 - get_inflation: ИПЦ (% г/г) на конец месяца
 - get_unemployment: безработица (% рабочей силы) на конец месяца
+- compare_periods: сравнение key_rate, fx_USD/fx_EUR/fx_CNY, cpi или unemployment в двух периодах; возвращает delta и ratio
 - calculate: безопасный калькулятор для арифметики над полученными числами
 
 Алгоритм:
@@ -250,6 +276,7 @@ def run_agent(
     use_cache: bool = False,
     track_cost: bool = False,
     verbose: bool = True,
+    trace_path: Path | None = DEFAULT_TRACE_PATH,
 ) -> dict[str, Any]:
     """ReAct-цикл. базовый режим — финал текстом; флаги включают блоки 6-10."""
     client = make_raw_client()
@@ -263,6 +290,7 @@ def run_agent(
     ]
     trace: list[dict[str, Any]] = []
     usage_log: list[dict[str, Any]] = []  # блок 10 — токены по шагам
+    run_id = str(uuid.uuid4())
 
     for step in range(1, max_iter + 1):
         resp = client.chat.completions.create(
@@ -294,13 +322,17 @@ def run_agent(
             print(f"[step {step}] {names or 'финал-текст'}")
 
         if not msg.tool_calls:
-            trace.append({"step": step, "final": msg.content})
+            event = _trace_event(run_id, step, {"final": msg.content})
+            trace.append(event)
+            if trace_path is not None:
+                _write_jsonl(trace_path, event)
             return _finish(
                 {
                     "answer": msg.content,
                     "structured": None,
                     "trace": trace,
                     "steps": step,
+                    "run_id": run_id,
                 },
                 usage_log,
                 track_cost=track_cost,
@@ -328,9 +360,14 @@ def run_agent(
                         "content": json.dumps(obs, ensure_ascii=False),
                     }
                 )
-                trace.append(
-                    {"step": step, "call": tc.function.name, "args": args, "obs": obs}
+                event = _trace_event(
+                    run_id,
+                    step,
+                    {"call": tc.function.name, "args": args, "obs": obs},
                 )
+                trace.append(event)
+                if trace_path is not None:
+                    _write_jsonl(trace_path, event)
                 if verbose:
                     print(
                         f"    {tc.function.name}({args}) -> {json.dumps(obs, ensure_ascii=False)[:140]}"
@@ -366,18 +403,32 @@ def run_agent(
             messages.append(
                 {"role": "tool", "tool_call_id": submit.id, "content": "ответ принят"}
             )
+            event = _trace_event(run_id, step, {"final": ans.answer})
+            trace.append(event)
+            if trace_path is not None:
+                _write_jsonl(trace_path, event)
             return _finish(
                 {
                     "answer": ans.answer,
                     "structured": ans,
                     "trace": trace,
                     "steps": step,
+                    "run_id": run_id,
                 },
                 usage_log,
                 track_cost=track_cost,
                 use_cache=use_cache,
                 verbose=verbose,
             )
+
+    event = _trace_event(
+        run_id,
+        max_iter,
+        {"final": None, "error": f"исчерпан лимит шагов max_iter={max_iter}"},
+    )
+    trace.append(event)
+    if trace_path is not None:
+        _write_jsonl(trace_path, event)
 
     return _finish(
         {
@@ -386,6 +437,7 @@ def run_agent(
             "trace": trace,
             "steps": max_iter,
             "error": f"исчерпан лимит шагов max_iter={max_iter}",
+            "run_id": run_id,
         },
         usage_log,
         track_cost=track_cost,
@@ -437,6 +489,7 @@ def main():
         use_critic=a.critic,
         use_cache=a.cache,
         track_cost=a.cost,
+        trace_path=a.trace or DEFAULT_TRACE_PATH,
     )
 
     print("\n=== ВОПРОС ===")

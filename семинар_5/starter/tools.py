@@ -264,6 +264,101 @@ def get_unemployment(year: int, month: int) -> dict:
 # 4. Калькулятор
 # ===========================================================================
 
+def _parse_period(period: str) -> tuple[int, int, str]:
+    """Accept YYYY-MM or YYYY-MM-DD; use the first day for month-only periods."""
+    if not isinstance(period, str):
+        raise ValueError("period must be a string in YYYY-MM or YYYY-MM-DD format")
+
+    if re.fullmatch(r"\d{4}-\d{2}", period):
+        year, month = map(int, period.split("-"))
+        if not (1 <= month <= 12):
+            raise ValueError(f"invalid month in period {period}")
+        return year, month, f"{year:04d}-{month:02d}-01"
+
+    if re.fullmatch(r"\d{4}-\d{2}-\d{2}", period):
+        d = datetime.strptime(period, "%Y-%m-%d").date()
+        return d.year, d.month, d.isoformat()
+
+    raise ValueError(f"invalid period format: {period}; expected YYYY-MM or YYYY-MM-DD")
+
+
+def _metric_point(metric: str, period: str) -> dict:
+    year, month, day = _parse_period(period)
+
+    if metric == "key_rate":
+        obs = get_key_rate(day)
+        value_key = "rate"
+    elif metric in {"fx_USD", "fx_EUR", "fx_CNY"}:
+        obs = get_fx_rate(metric.removeprefix("fx_"), day)
+        value_key = "rate"
+    elif metric == "cpi":
+        obs = get_inflation(year, month)
+        value_key = "cpi_yoy"
+    elif metric == "unemployment":
+        obs = get_unemployment(year, month)
+        value_key = "unemployment"
+    else:
+        return {
+            "error": (
+                "unknown metric; expected key_rate, fx_USD, fx_EUR, fx_CNY, "
+                "cpi or unemployment"
+            )
+        }
+
+    if "error" in obs:
+        return obs
+    if value_key not in obs:
+        return {"error": f"field {value_key} is missing in {metric} response: {obs}"}
+
+    if metric in {"cpi", "unemployment"}:
+        point_date = f"{int(obs['year']):04d}-{int(obs['month']):02d}"
+    else:
+        point_date = obs.get("date", day)
+
+    return {
+        "date": point_date,
+        "value": float(obs[value_key]),
+        "source": obs.get("source", "unknown"),
+    }
+
+
+def compare_periods(metric: str, period_a: str, period_b: str) -> dict:
+    """
+    Compare a macro metric in two periods using the existing data tools.
+
+    Args:
+        metric: "key_rate" | "fx_USD" | "fx_EUR" | "fx_CNY" | "cpi" | "unemployment".
+        period_a: YYYY-MM or YYYY-MM-DD.
+        period_b: YYYY-MM or YYYY-MM-DD.
+
+    Returns:
+        {"metric": ..., "a": {"date": ..., "value": ...}, "b": {"date": ..., "value": ...},
+         "delta": b.value - a.value, "ratio": b.value / a.value, "source": "..."}
+    """
+    try:
+        metric = str(metric)
+        a = _metric_point(metric, period_a)
+        if "error" in a:
+            return {"metric": metric, "period_a": period_a, "error": a["error"]}
+
+        b = _metric_point(metric, period_b)
+        if "error" in b:
+            return {"metric": metric, "period_b": period_b, "error": b["error"]}
+
+        if a["value"] == 0:
+            return {"metric": metric, "a": a, "b": b, "error": "ratio is undefined because a.value = 0"}
+
+        return {
+            "metric": metric,
+            "a": {"date": a["date"], "value": a["value"]},
+            "b": {"date": b["date"], "value": b["value"]},
+            "delta": round(b["value"] - a["value"], 6),
+            "ratio": round(b["value"] / a["value"], 6),
+            "source": " + ".join(sorted({a["source"], b["source"]})),
+        }
+    except (TypeError, ValueError) as e:
+        return {"metric": metric, "error": str(e)}
+
 
 def calculate(expression: str) -> dict:
     """
