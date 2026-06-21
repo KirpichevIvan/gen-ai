@@ -1,0 +1,32 @@
+{
+  "valid_passed": true,
+  "ghost_quote_caught": true,
+  "unsupported_number_caught": true,
+  "reports": {
+    "valid": {
+      "ok": true,
+      "ghost_quotes": 0,
+      "unsupported_numbers": 0,
+      "missing_expected_tools": [],
+      "notes": []
+    },
+    "ghost": {
+      "ok": false,
+      "ghost_quotes": 1,
+      "unsupported_numbers": 0,
+      "missing_expected_tools": [],
+      "notes": [
+        "Ghost quote: synthetic"
+      ]
+    },
+    "unsupported_number": {
+      "ok": false,
+      "ghost_quotes": 0,
+      "unsupported_numbers": 1,
+      "missing_expected_tools": [],
+      "notes": [
+        "Unsupported number: 999%"
+      ]
+    }
+  }
+}

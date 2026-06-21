@@ -1,0 +1,42 @@
+[
+  {
+    "query": "ragas context precision context recall faithfulness",
+    "title": "How to evaluate a RAG pipeline with context precision and recall?",
+    "url": "https://stackoverflow.com/search?q=ragas+context+precision+context+recall+faithfulness",
+    "score": 8,
+    "is_answered": true,
+    "summary": "For RAG evaluation, split metrics into retrieval quality and answer quality. Context precision measures whether retrieved chunks are relevant; context recall checks whether needed evidence was retrieved; faithfulness checks whether the answer is supported by context."
+  },
+  {
+    "query": "hybrid search bm25 vector search rag",
+    "title": "How should I combine BM25 and vector search for RAG?",
+    "url": "https://stackoverflow.com/search?q=hybrid+search+bm25+vector+search+rag",
+    "score": 12,
+    "is_answered": true,
+    "summary": "A common pattern is to run lexical BM25 and semantic vector retrieval in parallel, merge candidates, then rerank with a cross-encoder or LLM reranker."
+  },
+  {
+    "query": "chunk size overlap retrieval augmented generation",
+    "title": "What chunk size and overlap should I use for retrieval augmented generation?",
+    "url": "https://stackoverflow.com/search?q=chunk+size+overlap+retrieval+augmented+generation",
+    "score": 15,
+    "is_answered": true,
+    "summary": "There is no universal chunk size. Start from document structure, keep chunks small enough for focused retrieval, add modest overlap, and evaluate on gold questions."
+  },
+  {
+    "query": "prevent hallucinations in retrieval augmented generation citations",
+    "title": "How can I prevent hallucinated citations in a RAG answer?",
+    "url": "https://stackoverflow.com/search?q=prevent+hallucinations+retrieval+augmented+generation+citations",
+    "score": 10,
+    "is_answered": true,
+    "summary": "Force the generator to cite retrieved chunk IDs and verify after generation that every quote is a substring of the retrieved context. Reject or retry answers with ghost citations."
+  },
+  {
+    "query": "stackoverflow stackexchange api search python httpx",
+    "title": "How do I search Stack Overflow from Python using the Stack Exchange API?",
+    "url": "https://stackoverflow.com/search?q=Stack+Exchange+API+search+python+httpx",
+    "score": 6,
+    "is_answered": true,
+    "summary": "Use the Stack Exchange search/advanced endpoint with site=stackoverflow, order=desc, sort=relevance and a tagged or free-text query. Handle quota and network failures with a local cache."
+  }
+]

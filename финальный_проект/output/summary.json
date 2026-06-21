@@ -1,0 +1,37 @@
+{
+  "total": 20,
+  "passed": 11,
+  "pass_rate": 0.55,
+  "ghost_quotes": 0,
+  "unsupported_numbers": 0,
+  "avg_steps": 1.3,
+  "avg_token_estimate": 716.5,
+  "total_cost_usd_estimate": 0.0,
+  "stackoverflow_modes": {
+    "live": 9,
+    "live_empty": 1
+  },
+  "by_type": {
+    "local_only": {
+      "total": 5,
+      "passed": 4
+    },
+    "stackoverflow": {
+      "total": 5,
+      "passed": 4
+    },
+    "mixed": {
+      "total": 5,
+      "passed": 3
+    },
+    "out_of_scope": {
+      "total": 5,
+      "passed": 0
+    }
+  },
+  "corpus": {
+    "articles": 10,
+    "chunks": 152,
+    "chars": 153464
+  }
+}

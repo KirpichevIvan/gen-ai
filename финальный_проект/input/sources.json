@@ -1,0 +1,82 @@
+[
+  {
+    "id": "habr_01",
+    "file": "articles/habr_01_retrieval_в_2026_как_rag_переехал_с_энкодеров_на_llm_и_ч.txt",
+    "title": "Retrieval в 2026: как RAG переехал с энкодеров на LLM (и что с этим делать в своём проекте)",
+    "url": "https://habr.com/ru/articles/1049872/",
+    "published": "2026-06-20T12:27:09+03:00",
+    "topic": "LLM-based retrieval, embeddings, reranking"
+  },
+  {
+    "id": "habr_02",
+    "file": "articles/habr_02_когда_чат_бот_продает_chevrolet_за_доллар_как_тестироват.txt",
+    "title": "Когда чат-бот продаёт Chevrolet за доллар: как тестировать и мониторить LLM-приложения",
+    "url": "https://habr.com/ru/companies/oleg-bunin/articles/1049584/",
+    "published": "2026-06-19T14:16:51+03:00",
+    "topic": "LLM monitoring, LLM-as-judge, hallucinations"
+  },
+  {
+    "id": "habr_03",
+    "file": "articles/habr_03_что_перестает_работать_в_тестировании_когда_приходит_llm.txt",
+    "title": "Что перестаёт работать в тестировании, когда приходит LLM",
+    "url": "https://habr.com/ru/articles/1049482/",
+    "published": "2026-06-19T12:15:54+03:00",
+    "topic": "LLM testing and non-deterministic outputs"
+  },
+  {
+    "id": "habr_04",
+    "file": "articles/habr_04_occ_rag_компактные_модели_которые_отвечают_только_по_ист.txt",
+    "title": "OCC-RAG: компактные модели, которые отвечают только по источникам",
+    "url": "https://habr.com/ru/companies/airi/articles/1047624/",
+    "published": "2026-06-19T09:01:28+03:00",
+    "topic": "context Q&A, source-grounded compact models"
+  },
+  {
+    "id": "habr_05",
+    "file": "articles/habr_05_как_я_строил_трактор_rag_для_клумбы_а_клумбы_не_оказалос.txt",
+    "title": "Как я строил трактор(RAG) для клумбы, а клумбы не оказалось",
+    "url": "https://habr.com/ru/articles/1049344/",
+    "published": "2026-06-19T03:17:57+03:00",
+    "topic": "practical RAG failure caused by weak source documentation"
+  },
+  {
+    "id": "habr_06",
+    "file": "articles/habr_06_как_мы_с_claude_code_учились_оценивать_качество_rag_сист.txt",
+    "title": "Как мы с Claude Code учились оценивать качество RAG системы",
+    "url": "https://habr.com/ru/articles/1049028/",
+    "published": "2026-06-18T17:23:51+03:00",
+    "topic": "RAGAS metrics and evaluation automation"
+  },
+  {
+    "id": "habr_07",
+    "file": "articles/habr_07_как_научить_языковую_модель_читать_транзакции_превращаем.txt",
+    "title": "Как научить языковую модель читать транзакции: превращаем историю платежей в базу знаний",
+    "url": "https://habr.com/ru/companies/sberbank/articles/1049018/",
+    "published": "2026-06-18T15:08:03+03:00",
+    "topic": "knowledge base from transactions"
+  },
+  {
+    "id": "habr_08",
+    "file": "articles/habr_08_внешняя_память_для_llm_как_rag_дает_моделям_доступ_к_нов.txt",
+    "title": "Внешняя память для LLM: как RAG дает моделям доступ к новым знаниям",
+    "url": "https://habr.com/ru/companies/magnus-tech/articles/1046702/",
+    "published": "2026-06-18T14:14:53+03:00",
+    "topic": "RAG pipeline overview"
+  },
+  {
+    "id": "habr_09",
+    "file": "articles/habr_09_vibecode_по_дешевке_домашний_сервер_с_qwen_code_за_25к_к.txt",
+    "title": "Vibecode по дешевке — домашний сервер с Qwen Code за 25к, который не отключит Anthropic",
+    "url": "https://habr.com/ru/articles/1049052/",
+    "published": "2026-06-18T13:25:02+03:00",
+    "topic": "local LLM infrastructure"
+  },
+  {
+    "id": "habr_10",
+    "file": "articles/habr_10_dcd_доменно_ориентированная_архитектура_для_построения_r.txt",
+    "title": "DCD: доменно-ориентированная архитектура для построения RAG-систем",
+    "url": "https://habr.com/ru/companies/redmadrobot/articles/1049030/",
+    "published": "2026-06-18T12:42:21+03:00",
+    "topic": "domain-oriented RAG routing"
+  }
+]

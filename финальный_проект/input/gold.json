@@ -1,0 +1,167 @@
+[
+  {
+    "id": "q01",
+    "type": "local_only",
+    "question": "В какой статье говорится, что Qwen3-Embedding держит контекст 32k токенов, и почему это важно для chunking?",
+    "expected_route": ["local_rag"],
+    "gold_sources": ["habr_01"],
+    "expected_keywords": ["Qwen3-Embedding", "32k", "chunking", "retrieval"]
+  },
+  {
+    "id": "q02",
+    "type": "local_only",
+    "question": "Какие два чекпойнта OCC-RAG выложила команда AIRI и под какую задачу они оптимизированы?",
+    "expected_route": ["local_rag"],
+    "gold_sources": ["habr_04"],
+    "expected_keywords": ["OCC-RAG-0.6B", "OCC-RAG-1.7B", "Context QA", "контекст"]
+  },
+  {
+    "id": "q03",
+    "type": "local_only",
+    "question": "На какие три этапа делится классический RAG-конвейер и зачем нужен этап поиска?",
+    "expected_route": ["local_rag"],
+    "gold_sources": ["habr_08"],
+    "expected_keywords": ["индексирование", "поиск", "генерация"]
+  },
+  {
+    "id": "q04",
+    "type": "local_only",
+    "question": "Что означает архитектура DCD и какие три уровня организации знаний она использует?",
+    "expected_route": ["local_rag"],
+    "gold_sources": ["habr_10"],
+    "expected_keywords": ["Domain", "Collection", "Document", "DCD"]
+  },
+  {
+    "id": "q05",
+    "type": "local_only",
+    "question": "Какие три метрики RAGAS автор хотел использовать при оценке качества RAG-контекста через Claude Code?",
+    "expected_route": ["local_rag"],
+    "gold_sources": ["habr_06"],
+    "expected_keywords": ["Context Precision", "Context Relevance", "Context Recall"]
+  },
+  {
+    "id": "q06",
+    "type": "stackoverflow",
+    "question": "Какие типичные проблемы Stack Overflow находит по запросу RAG pipeline using Haystack and Milvus embedder?",
+    "expected_route": ["stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": ["RAG", "Haystack", "Milvus", "pipeline"]
+  },
+  {
+    "id": "q07",
+    "type": "stackoverflow",
+    "question": "Как настроить RecursiveCharacterTextSplitter: что означают chunk_size и chunk_overlap?",
+    "expected_route": ["stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": ["RecursiveCharacterTextSplitter", "chunk_size", "chunk_overlap", "LangChain"]
+  },
+  {
+    "id": "q08",
+    "type": "stackoverflow",
+    "question": "Как на Stack Overflow формулируют проблему оценки Graph RAG pipeline using metrics?",
+    "expected_route": ["stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": ["Graph RAG", "evaluate", "metrics", "pipeline"]
+  },
+  {
+    "id": "q09",
+    "type": "stackoverflow",
+    "question": "Как в RAG-пайплайне проверить, что цитаты или page citations взяты из retrieved documents, а не придуманы моделью?",
+    "expected_route": ["stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": ["citations", "retrieved", "documents", "hallucinations"]
+  },
+  {
+    "id": "q10",
+    "type": "stackoverflow",
+    "question": "Что Stack Overflow выдаёт по table-based RAG и hybrid retrieval: зачем там упоминаются BM25 и vector search?",
+    "expected_route": ["stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": ["table", "BM25", "vector", "hybrid"]
+  },
+  {
+    "id": "q11",
+    "type": "mixed",
+    "question": "Сравни подход DCD из Habr с table-based RAG и hybrid retrieval из Stack Overflow: как оба подхода сужают область поиска перед генерацией?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": ["habr_10"],
+    "expected_keywords": ["DCD", "Domain", "Collection", "table", "BM25", "vector"]
+  },
+  {
+    "id": "q12",
+    "type": "mixed",
+    "question": "Как идеи статьи про внешнюю память для LLM сочетаются с проверкой RAG citations/page citations из retrieved documents?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": ["habr_08"],
+    "expected_keywords": ["внешняя память", "контекст", "citations", "retrieved"]
+  },
+  {
+    "id": "q13",
+    "type": "mixed",
+    "question": "Сопоставь метрики RAGAS из статьи про Claude Code с вопросом Stack Overflow про оценку Graph RAG pipeline using metrics.",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": ["habr_06"],
+    "expected_keywords": ["Context Precision", "Context Recall", "RAGAS", "metrics"]
+  },
+  {
+    "id": "q14",
+    "type": "mixed",
+    "question": "Почему статья про Qwen3-Embedding и настройка RecursiveCharacterTextSplitter говорят, что chunk_size и chunk_overlap надо проверять на eval?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": ["habr_01"],
+    "expected_keywords": ["Qwen3-Embedding", "32k", "chunk_size", "chunk_overlap"]
+  },
+  {
+    "id": "q15",
+    "type": "mixed",
+    "question": "Как мониторинг LLM-приложений из Habr помогает дополнить проверку, что RAG citations опираются на retrieved documents?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": ["habr_02"],
+    "expected_keywords": ["monitoring", "LLM-as-judge", "citations", "retrieved"]
+  },
+  {
+    "id": "q16",
+    "type": "out_of_scope",
+    "question": "Какой точный default chunk_size у RecursiveCharacterTextSplitter в LangChain версии 0.3.0?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": [],
+    "expect_abstain": true
+  },
+  {
+    "id": "q17",
+    "type": "out_of_scope",
+    "question": "Какой embedding model лучше выбрать для медицинских документов на русском языке в 2026 году?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": [],
+    "expect_abstain": true
+  },
+  {
+    "id": "q18",
+    "type": "out_of_scope",
+    "question": "Сколько стоит миллион токенов у Claude Sonnet сегодня и как это влияет на стоимость RAG?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": [],
+    "expect_abstain": true
+  },
+  {
+    "id": "q19",
+    "type": "out_of_scope",
+    "question": "Можно ли хранить embeddings в блокчейне и будет ли это быстрее Qdrant?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": [],
+    "expect_abstain": true
+  },
+  {
+    "id": "q20",
+    "type": "out_of_scope",
+    "question": "Какая версия LlamaIndex первой добавила поддержку конкретного API для GraphRAG?",
+    "expected_route": ["local_rag", "stackoverflow_search"],
+    "gold_sources": [],
+    "expected_keywords": [],
+    "expect_abstain": true
+  }
+]
